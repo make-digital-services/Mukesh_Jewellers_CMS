@@ -1,0 +1,63 @@
+<div class="card-body">
+    <img class="logo" src="http://virarcity.com/mukeshjewellers/images/logo1.png" alt="mukeshjewellers logo" width="185px">
+  <form class="loginBox" (ngSubmit)="login(userData)" #loginForm="ngForm">
+     
+    <div class="form-group row">
+      <!-- <label for="husername" class="col-sm-2 col-form-label text-nowrap">Username</label> -->
+      <div class="col-sm-12">
+        <input type="text" autocomplete="off" required name="username" #username="ngModel" [(ngModel)]="userData.username" class="form-control rounded-0" id="husername" aria-describedby="emailHelp"
+          placeholder="Username">
+          <div *ngIf="username.invalid && (username.dirty || username.touched)" class="danger">
+              <div *ngIf="username.errors.required">
+                User Name is required.
+              </div>
+              <!-- <div *ngIf="username.errors.minlength">
+               Must be at least 3 characters long.
+              </div> -->
+            </div>
+      </div>
+    </div>
+   
+    <div class="form-group row">
+      <!-- <label for="inputPassword" class="col-sm-2 col-form-label text-nowrap">Password</label> -->
+      <div class="col-sm-12">
+        <input type="password" #password="ngModel" required name="password" [(ngModel)]="userData.password" class="form-control rounded-0" id="inputPassword" placeholder="Password">
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="danger">
+            <div *ngIf="password.errors.required">
+              Password is required.
+            </div>
+          
+          </div>
+      </div>
+    </div>
+    <!-- <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label "></label>
+      <div class="col-sm-12">
+        <div class="custom-control custom-checkbox my-1 mr-sm-2">
+          <input type="checkbox" class="custom-control-input" id="hcustomControlInline" checked>
+          <label class="custom-control-label" for="hcustomControlInline">Remember me</label>
+        </div>
+      </div>
+    </div> -->
+    <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label"></label>
+      <div class="col-sm-10 mb-3">
+        <button type="submit" [disabled]="!loginForm.valid" class="btn btn-lightning rounded-0 mb-2 mr-2">Login</button>
+        <button type="button " class="btn btn-outline-lightning rounded-0 mb-2">Cancel</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="waveWrapper waveAnimation">
+    <div class="waveWrapperInner bgTop">
+      <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgMiddle">
+      <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgBottom">
+      <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+    </div>
+  </div>
+
+

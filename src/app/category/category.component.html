@@ -1,0 +1,114 @@
+<div class="row mb-4">
+  <!-- table start -->
+  <div class="col-md-12" *ngIf="!showForm">
+    <div class="card border-0 rounded-0">
+      <div class="card-title mb-1 p-3">
+        <h5>Category</h5>
+        <button (click)="addCategory()" class="btn btn-lightning rounded-0 mb-2 float-right" type="button">Add
+          +</button>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive-md">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Order</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let data of categoryData | paginate: { itemsPerPage: 5, currentPage: p, totalItems: categoryData?.length }">
+                <th scope="row">{{data.id}}</th>
+                <td>{{data.name}}</td>
+                <td>{{data.description}}</td>
+                <td>{{data.order}}</td>
+                <td>
+                  <span *ngIf="data.status==1" class="badge badge-success rounded-0 p-1">Enabled</span>
+                  <span *ngIf="data.status==2" class="badge badge-danger  rounded-0 p-1">Disabled</span>
+                </td>
+                <td>
+                  <a (click)="editCategory(data)" class="btn btn-sm btn-outline-lightning rounded-0 mr-2 ">
+                    <i class="far fa-edit"></i>
+                  </a>
+                  <a (click)="deleteCategory(data)" class="btn btn-sm btn-outline-lightning rounded-0">
+                    <i class="far fa-trash-alt"></i>
+                  </a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- table end -->
+
+
+  <!-- form start -->
+  <div *ngIf="showForm" class="col-md-12 col-lg-6 mb-4 align-items-stretch mt-3">
+    <div class="card border-0 rounded-0 h-100">
+      <div class="card-title mb-1 p-3">
+        <h5>{{isEdit?'Edit':'Add'}} Category</h5>
+      </div>
+      <div class="card-body">
+        <form #categoryForm="ngForm" (ngSubmit)="submitCategory(formData)">
+          <div class="form-group">
+            <input *ngIf="isEdit" type="hidden" name="id" [(ngModel)]="formData.id">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" required name="name" [(ngModel)]="formData.name" #name="ngModel"
+              class="form-control rounded-0" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="Enter Name">
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="danger">
+              <small *ngIf="name.errors.required" class="form-text">Name is required.</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Upload Image</label>
+            <div class="custom-file">
+              <input type="file" (change)="onFileChange($event)" [(ngModel)]="imageName" name="image"
+                class="custom-file-input" id="customFile">
+              <label class="custom-file-label rounded-0" for="customFile">Choose file</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputPassword1">Description</label>
+            <textarea name="description" name="description" [(ngModel)]="formData.description"
+              class="form-control rounded-0" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Order</label>
+            <input type="text" name="order" [(ngModel)]="formData.order" class="form-control rounded-0"
+              id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Sort Order">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Select Status</label>
+            <select name="status" [(ngModel)]="formData.status" class="form-control rounded-0"
+              id="exampleFormControlSelect1">
+              <option value="1">Enable</option>
+              <option value="2">Disable</option>
+
+            </select>
+          </div>
+
+          <button type="submit" [disabled]="!categoryForm.valid"
+            class="btn btn-lightning rounded-0 mb-2 mr-2">{{isEdit?'Update':'Save'}}</button>
+          <button type="button" (click)="showForm=false"
+            class="btn btn-outline-lightning rounded-0 mb-2">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- form end -->
+</div>

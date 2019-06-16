@@ -1,0 +1,58 @@
+<div class="row mb-4">
+  <!-- table start -->
+  <div class="col-md-12" *ngIf="!showForm">
+    <div class="card border-0 rounded-0">
+      <div class="card-title mb-1 p-3">
+        <h5>Product</h5>
+        <button (click)="addProduct()" class="btn btn-lightning rounded-0 mb-2 float-right" type="button">Add
+          +</button>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive-md">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Price</th>
+                <th scope="col">Order</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let data of productData | paginate: { itemsPerPage: 5, currentPage: p, totalItems: productData?.length }">
+                <th scope="row">{{data.id}}</th>
+                <td>{{data.name}}</td>
+                <td>{{data.quantity}}</td>
+                <td>{{data.final_price}}</td>
+                <td>{{data.order}}</td>
+                <td>
+                  <span *ngIf="data.status==1" class="badge badge-success rounded-0 p-1">Enabled</span>
+                  <span *ngIf="data.status==2" class="badge badge-danger  rounded-0 p-1">Disabled</span>
+                </td>
+                <td>
+                  <a (click)="editProduct(data)" class="btn btn-sm btn-outline-lightning rounded-0 mr-2 ">
+                    <i class="far fa-edit"></i>
+                  </a>
+                  <a (click)="deleteProduct(data)" class="btn btn-sm btn-outline-lightning rounded-0">
+                    <i class="far fa-trash-alt"></i>
+                  </a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- table end -->
+
+
+</div>
