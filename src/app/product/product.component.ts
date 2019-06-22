@@ -50,6 +50,7 @@ export class ProductComponent implements OnInit {
       if (res.value) {
         this.formData = res.data;
         this.productImages = res.images;
+        // this.selectedProducts = res.realated_product;
         this.isEdit = true;
         this.showForm = true;
       }

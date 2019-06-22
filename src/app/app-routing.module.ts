@@ -13,6 +13,7 @@ import { OrderComponent } from './order/order.component';
 import { ProductComponent } from './product/product.component';
 import { UserComponent } from './user/user.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'navigation', component: NavigationComponent, canActivate: [AuthGuard] },
   { path: 'product', component: ProductComponent, canActivate: [AuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'contact', component: ContactComponent, canActivate: [AuthGuard] },
   { path: 'forms', component: FormsComponent },
   { path: 'tables', component: TablesComponent },
   { path: 'typography', component: TypographyComponent },

@@ -1,0 +1,107 @@
+<div class="row mb-4">
+  <!-- table start -->
+  <div class="col-md-12" *ngIf="!showForm">
+    <div class="card border-0 rounded-0">
+      <div class="card-title mb-1 p-3">
+        <h5>Contact</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive-md">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let data of contactData | paginate: { itemsPerPage: 5, currentPage: p, totalItems: contactData?.length }">
+                <th scope="row">{{data.id}}</th>
+                <td>{{data.name}}</td>
+                <td>{{data.email}}</td>
+                <td>{{data.subject}}</td>
+                <td>{{data.phone}}</td>
+
+                <td>
+                  <a (click)="editContact(data)" class="btn btn-sm btn-outline-lightning rounded-0 mr-2 ">
+                    <i class="far fa-edit"></i>
+                  </a>
+                  <a (click)="deleteContact(data.id)" class="btn btn-sm btn-outline-lightning rounded-0">
+                    <i class="far fa-trash-alt"></i>
+                  </a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- table end -->
+
+
+
+  <!-- form start -->
+  <div *ngIf="showForm" class="col-md-12 col-lg-6 mb-4 align-items-stretch mt-3">
+    <div class="card border-0 rounded-0 h-100">
+      <div class="card-title mb-1 p-3">
+        <h5>Contact</h5>
+      </div>
+      <div class="card-body">
+        <form #contactForm="ngForm">
+          <div class="form-group">
+            <input *ngIf="isEdit" type="hidden" name="id" [(ngModel)]="formData.id">
+            <label for="exampleInputEmail1">Name</label>
+            <input readonly type="text" required name="name" [(ngModel)]="formData.name" #name="ngModel"
+              class="form-control rounded-0" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="Enter Name">
+
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email</label>
+            <input type="text" readonly name="email" [(ngModel)]="formData.email" class="form-control rounded-0"
+              id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter date">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Phone</label>
+            <input type="text" readonly name="phone" [(ngModel)]="formData.phone" class="form-control rounded-0"
+              id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter phone">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Subject</label>
+            <input type="text" readonly name="subject" [(ngModel)]="formData.subject" class="form-control rounded-0"
+              id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter subject">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Date</label>
+            <input type="text" readonly name="date" [value]="formData.timestamp | date:'medium'"
+              class="form-control rounded-0" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="Enter date">
+          </div>
+
+
+          <div class="form-group">
+            <label for="exampleInputPassword1">Message</label>
+            <textarea readonly name="message" name="message" [(ngModel)]="formData.message"
+              class="form-control rounded-0" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+
+          <button type="button" (click)="showForm=false"
+            class="btn btn-outline-lightning rounded-0 mb-2">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- form end -->
+</div>

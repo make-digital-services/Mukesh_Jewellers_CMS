@@ -44,7 +44,9 @@ export class ProductService {
     body.append('metatitle', data.metatitle);
     body.append('metadesc', data.metadesc);
     body.append('metakeyword', data.metakeyword);
-    body.append('realated', JSON.stringify(data.relatedProduct));
+    if (data.relatedProduct && data.relatedProduct.length > 0) {
+      body.append('realated', JSON.stringify(data.relatedProduct));
+    }
     return this.http.post(apiUrl + "createProduct", body, httpOptionsAdmin);
   }
 

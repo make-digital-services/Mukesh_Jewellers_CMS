@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationService } from '../services/navigation.service';
 
 @Component({
   selector: 'app-navigation',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
-
-  constructor() { }
+  navigationData: any;
+  formData: any = {};
+  showForm: boolean = false;
+  isEdit: boolean = false;
+  constructor(private navigationService: NavigationService) { }
 
   ngOnInit() {
+    this.getNavigation();
+  }
+
+  getNavigation() {
+    this.navigationService.getNavigation().subscribe((res: any) => {
+      if (res.value) {
+        this.navigationData = res.data;
+      }
+    }, err => console.log(err));
   }
 
 }

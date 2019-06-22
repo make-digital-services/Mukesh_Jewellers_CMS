@@ -30,6 +30,7 @@ import { OrderComponent } from './order/order.component';
 import { ProductComponent } from './product/product.component';
 import { UserComponent } from './user/user.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { ContactComponent } from './contact/contact.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +48,8 @@ import { NavigationComponent } from './navigation/navigation.component';
     OrderComponent,
     ProductComponent,
     UserComponent,
-    NavigationComponent
+    NavigationComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
