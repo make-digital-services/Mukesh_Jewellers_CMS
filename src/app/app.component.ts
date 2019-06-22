@@ -8,11 +8,10 @@ import { AppService } from './services/app.service';
 })
 export class AppComponent {
   title = 'pro-dashboard-angular';
-showSideBar=true;
+  showSideBar = true;
   constructor(private appService: AppService) {
-    console.log("Aaaaaa", location);
-    if(location.pathname=='/login'){
-      this.showSideBar=false;
+    if (location.pathname == '/login') {
+      this.showSideBar = false;
     }
   }
   getClasses() {

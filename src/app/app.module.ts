@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -23,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { TagInputModule } from 'ngx-chips';
 import { LoginComponent } from './login/login.component';
 import { OrderComponent } from './order/order.component';
 import { ProductComponent } from './product/product.component';
@@ -52,13 +53,14 @@ import { NavigationComponent } from './navigation/navigation.component';
     BrowserModule,
     AppRoutingModule,
     CommonModule,
+    TagInputModule,
     HttpClientModule,
     BrowserAnimationsModule,
     NgxPaginationModule,
     FormsModule,
     CollapseModule.forRoot(),
     ToastrModule.forRoot()
-    ],
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
