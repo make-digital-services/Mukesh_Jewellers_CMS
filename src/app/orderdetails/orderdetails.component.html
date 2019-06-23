@@ -1,0 +1,287 @@
+<div class="row mb-4">
+
+
+  <div class="col-md-12 mb-4" *ngIf="orderDetails">
+    <div class="card border-0 rounded-0">
+      <div class="card-title mb-1 p-3">
+        <h5>Order Details</h5>
+      </div>
+      <div class="card-body">
+        <div class="form-group row"><label class="col-form-label text-nowrap" for="husername">Update Order
+            Status</label>
+          <div class="col-sm-3">
+            <select name="status" [(ngModel)]="orderDetails.orderstatus" class="form-control rounded-0"
+              id="exampleFormControlSelect1">
+              <option value="1">Pending</option>
+              <option value="2">Processing</option>
+              <option value="3">Dispatched</option>
+              <option value="4">Shipped</option>
+              <option value="5">Cancelled</option>
+
+            </select>
+          </div>
+          <button (click)="updateOrderStatus(orderDetails)"
+            class="btn btn-lightning rounded-0 mb-2 mr-2">Update</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container page-container order-details-page" *ngIf="orderDetails">
+    <div class="row page-row">
+      <!-- orderdetails markup -->
+      <div class="col-lg-12 section-container order-section-container">
+        <div class="row section-row">
+          <!-- page title -->
+          <div class="col-lg-12 col-md-12 col-sm-12 section-container page-title-container">
+            <div class="page-title-wrapper">
+              <h3 class="title">Order #: {{orderDetails.id}}</h3>
+              <!-- <div class="download-btn-container">
+                <a (click)=createPdf()>
+                  <i class="fa fa-file-pdf-o"></i>
+                </a>
+              </div> -->
+
+            </div>
+          </div>
+          <!-- shipping address detail -->
+          <div class="col-lg-12 col-md-12 col-sm-12 ship-address-container">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-12 ship-to-container">
+                <div class="ship-to-wrapper">
+                  <strong>Ship To: {{orderDetails.shippingname | titlecase}}
+                  </strong>
+                  <span>{{orderDetails.shippingaddress}}{{orderDetails.shippingcity}} {{orderDetails.shippingstate}}
+                    {{orderDetails.shippingpincode}}
+                  </span>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12 ship-to-container sold-to">
+                <div class="ship-to-wrapper">
+                  <strong>Sold To: {{orderDetails.billingname | titlecase}}</strong>
+
+                  <span>{{orderDetails.billingaddress}}{{orderDetails.billingcity}} {{orderDetails.billingstate}}
+                    {{orderDetails.billingpincode}}
+                  </span>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12 ship-to-container shipping_info">
+                <div class="ship-to-wrapper">
+                  <p>
+                    <span class="title">Date:</span>
+                    <span class="value">{{orderDetails.timestamp | date:'medium'}}</span>
+                  </p>
+                  <p>
+                    <span class="title">Order Status:</span>
+                    <span *ngIf="orderDetails.orderstatus==1" class="badge badge-warning rounded-0 p-1">Pending</span>
+                    <span *ngIf="orderDetails.orderstatus==2" class="badge badge-dark rounded-0 p-1">Processing</span>
+                    <span *ngIf="orderDetails.orderstatus==3"
+                      class="badge badge-primary rounded-0 p-1">Dispatched</span>
+                    <span *ngIf="orderDetails.orderstatus==4" class="badge badge-success rounded-0 p-1">Shipped</span>
+                    <span *ngIf="orderDetails.orderstatus==5" class="badge badge-danger rounded-0 p-1">Cancelled</span>
+
+                  </p>
+                  <p>
+                    <span class="title">Payment Mode:</span>
+                    <span class="value">{{orderDetails.paymentmode}}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- order deatils -->
+          <div class="col-lg-12 col-md-12 col-sm-12 col-lg-12 table-container">
+            <ul class="ui-table">
+              <div class="thead">
+                <li class="row tbl-row">
+                  <div class="col col-6 tbl-cell details">
+                    <span>Item/Description</span>
+                  </div>
+                  <div class="col tbl-cell quentity">
+                    <span>Qty</span>
+                  </div>
+                  <div class="col tbl-cell price">
+                    <span>Price</span>
+                  </div>
+                  <div class="col tbl-cell cost">
+                    <span>Total</span>
+                  </div>
+                </li>
+              </div>
+              <div class="tbody">
+                <li class="row tbl-row" *ngFor="let orderItem of itemDetails">
+                  <div class="col col-6 tbl-cell details" data-title="Item/Description">
+                    <div class="details-info" (click)="routeToDetails(orderItem.product_id,orderItem.name)">
+                      <div class="details-image">
+                        <img class="img-fluid" src="{{imageServer}}{{orderItem.image}}" alt="">
+                      </div>
+                      <div class="details-desc">
+                        <span>{{orderItem.name}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col tbl-cell quentity" data-title="Qty">
+                    <span class="value">{{orderItem.quantity}}</span>
+                  </div>
+                  <div class="col tbl-cell price" data-title="Price">
+                    <span class="value currency">{{orderItem.price |  currency:"INR":"₹"}}</span>
+                  </div>
+                  <div class="col tbl-cell cost" data-title="Total">
+                    <span class="value currency">{{orderItem.price * orderItem.quantity |  currency:"INR":"₹"}}</span>
+                  </div>
+                </li>
+              </div>
+            </ul>
+            <!-- order total -->
+            <div class="order-total">
+              <div class="row order-total-row justify-content-end">
+                <div class="col-lg-4 col-md-5 col-sm-12 order-total-container align-self-end">
+                  <div class="order-total-wrapper item">
+                    <p class="total-label">Total Items :</p>
+                    <p class="total-value">{{orderDetails.items}}</p>
+                  </div>
+                  <div class="order-total-wrapper total">
+                    <p class="total-label">Order Total * :</p>
+                    <p class="total-value currency">{{orderDetails.finalamount |  currency:"INR":"₹"}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- pdf markup -->
+      <div class="col-lg-12 section-container pdf-section-container" id="createPdf">
+        <div class="row section-row pdf-section-row">
+          <div class="col-lg-12 col-md-12 col-sm-12 section-container pdf-header-container">
+            <div class="row pdf-header-row">
+              <div class="col col-9 header-address">
+                <div class="row header-address-row">
+                  <div class="col logo-container">
+                    <div class="logo-wrapper">
+                      <img class="img-fluid" src="http://virarcity.com/mukeshjewellers/images/logo1.png" />
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 ship-address-container">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-12 ship-to-container">
+                <div class="ship-to-wrapper">
+                  <strong>Ship To: {{orderDetails.first_name | titlecase}}
+                    {{orderDetails.last_name | titlecase}}</strong>
+                  <span>{{orderDetails.shipping_address}}{{orderDetails.shipping_city}} {{orderDetails.shipping_state}}
+                    {{orderDetails.shipping_pincode}}
+                  </span>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12 ship-to-container sold-to">
+                <div class="ship-to-wrapper">
+                  <strong>Sold To:</strong>
+                  <span>{{orderDetails.billing_address}}{{orderDetails.billing_city}} {{orderDetails.billing_state}}
+                    {{orderDetails.billing_pincode}}
+                  </span>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12 ship-to-container shipping_info">
+                <div class="ship-to-wrapper">
+                  <p>
+                    <span class="title">Date:</span>
+                    <span class="value">{{orderDetails.date | date:'medium'}}</span>
+                  </p>
+                  <p>
+                    <span class="title">Order Status:</span>
+                    <span class="value" *ngIf="orderDetails.orderstatus==1">Pending</span>
+                    <span class="value" *ngIf="orderDetails.orderstatus==2">Processing</span>
+                    <span class="value" *ngIf="orderDetails.orderstatus==3">Dispatched</span>
+                    <span class="value" *ngIf="orderDetails.orderstatus==4">Shipped</span>
+                    <span class="value" *ngIf="orderDetails.orderstatus==5">Cancelled</span>
+                  </p>
+                  <p>
+                    <span class="title">Payment Mode:</span>
+                    <span class="value">{{orderDetails.paymentmode}}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-lg-12 table-container">
+            <ul class="ui-table">
+              <div class="thead">
+                <li class="row tbl-row">
+                  <div class="col col-6 tbl-cell details">
+                    <span>Item/Description</span>
+                  </div>
+                  <div class="col tbl-cell quentity">
+                    <span>Qty</span>
+                  </div>
+                  <div class="col tbl-cell price">
+                    <span>Price</span>
+                  </div>
+                  <div class="col tbl-cell cost">
+                    <span>Total</span>
+                  </div>
+                </li>
+              </div>
+              <div class="tbody">
+                <li class="row tbl-row" *ngFor="let orderItem of itemDetails">
+                  <div class="col col-6 tbl-cell details" data-title="Item/Description">
+                    <div class="details-info" (click)="routeToDetails(orderItem.product_id,orderItem.name)">
+
+                      <div class="details-desc">
+                        <span>{{orderItem.name}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col tbl-cell quentity" data-title="Qty">
+                    <span class="value">{{orderItem.quantity}}</span>
+                  </div>
+                  <div class="col tbl-cell price" data-title="Price">
+                    <span class="value currency">{{orderItem.price |  currency:"INR":"₹"}}</span>
+                  </div>
+                  <div class="col tbl-cell cost" data-title="Total">
+                    <span class="value currency">{{orderItem.price * orderItem.quantity |  currency:"INR":"₹"}}</span>
+                  </div>
+                </li>
+              </div>
+            </ul>
+            <div class="order-total" id="orderTotal">
+              <div class="row order-total-row justify-content-end">
+                <div class="col-lg-10 col-md-10 col-sm-10 order-total-container desc">
+                  <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered
+                    alteration in some form, by injected humour, or randomised words which don't look even slightly
+                    believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't
+                    anything
+                    embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to
+                    repeat predefined chunks as necessary</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 order-total-container total">
+                  <div class="order-total-wrapper item">
+                    <p class="total-label">Total Items :</p>
+                    <p class="total-value">{{orderDetails.items}}</p>
+                  </div>
+                  <div class="order-total-wrapper total">
+                    <p class="total-label">Order Total * :</p>
+                    <p class="total-value currency">{{orderDetails.finalamount |  currency:"INR":"₹"}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

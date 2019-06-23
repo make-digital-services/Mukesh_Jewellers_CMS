@@ -31,6 +31,7 @@ import { ProductComponent } from './product/product.component';
 import { UserComponent } from './user/user.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ContactComponent } from './contact/contact.component';
+import { OrderdetailsComponent } from './orderdetails/orderdetails.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,8 @@ import { ContactComponent } from './contact/contact.component';
     ProductComponent,
     UserComponent,
     NavigationComponent,
-    ContactComponent
+    ContactComponent,
+    OrderdetailsComponent
   ],
   imports: [
     BrowserModule,

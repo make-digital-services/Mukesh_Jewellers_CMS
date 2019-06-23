@@ -1,3 +1,68 @@
-<p>
-  order works!
-</p>
+<div class="row mb-4">
+  <!-- table start -->
+  <div class="col-md-12" *ngIf="!showForm">
+    <div class="card border-0 rounded-0">
+      <div class="card-title mb-1 p-3">
+        <h5>Order</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive-md">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Items</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let data of orderData | paginate: { itemsPerPage: 5, currentPage: p, totalItems: orderData?.length }">
+                <th scope="row">{{data.id}}</th>
+                <td>{{data.name}}</td>
+                <td>{{data.email}}</td>
+                <td>{{data.timestamp | date:'medium'}}</td>
+                <td class="currency">
+                  <span *ngIf="data.currency==1">
+                    {{data.finalamount |  currency:"INR":"₹"}}
+                  </span>
+                  <span *ngIf="data.currency!=1">
+                    {{data.finalamount}}
+                  </span>
+                </td>
+                <td>{{data.items}}</td>
+                <td>
+                  <span *ngIf="data.orderstatus==1" class="badge badge-warning rounded-0 p-1">Pending</span>
+                  <span *ngIf="data.orderstatus==2" class="badge badge-dark rounded-0 p-1">Processing</span>
+                  <span *ngIf="data.orderstatus==3" class="badge badge-primary rounded-0 p-1">Dispatched</span>
+                  <span *ngIf="data.orderstatus==4" class="badge badge-success rounded-0 p-1">Shipped</span>
+                  <span *ngIf="data.orderstatus==5" class="badge badge-danger rounded-0 p-1">Cancelled</span>
+                </td>
+
+                <td>
+                  <a (click)="editOrder(data.id)" class="btn btn-sm btn-outline-lightning rounded-0 mr-2 ">
+                    <i class="far fa-edit"></i>
+                  </a>
+                  <a (click)="deleteOrder(data.id)" class="btn btn-sm btn-outline-lightning rounded-0">
+                    <i class="far fa-trash-alt"></i>
+                  </a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- table end -->
+
+</div>
