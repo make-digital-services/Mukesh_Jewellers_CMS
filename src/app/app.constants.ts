@@ -1,8 +1,8 @@
 import { HttpHeaders } from "@angular/common/http";
-// export const apiUrl = "http://virarcity.com/mjbackend/index.php/API/";
+export const apiUrl = "http://virarcity.com/mjbackend/index.php/API/";
 // export const imgUrl = "http://virarcity.com/mjbackend/uploads/";
-export const apiUrl = "http://localhost/mjbackend/index.php/API/";
-export const imgUrl = "http://localhost/mjbackend/uploads/";
+// export const apiUrl = "http://localhost/mjbackend/index.php/API/";
+// export const imgUrl = "http://localhost/mjbackend/uploads/";
 
 export const httpOptionsGet = {
   headers: new HttpHeaders({

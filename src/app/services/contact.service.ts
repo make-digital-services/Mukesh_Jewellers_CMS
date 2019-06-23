@@ -12,6 +12,9 @@ export class ContactService {
   getContact() {
     return this.http.get(apiUrl + 'getContact');
   }
+  getSubscribe() {
+    return this.http.get(apiUrl + 'getSubscribe');
+  }
 
   deleteContact(id) {
     return this.http.get(apiUrl + "deleteContact?id=" + id, httpOptionsGet);

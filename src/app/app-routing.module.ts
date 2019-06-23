@@ -15,6 +15,7 @@ import { UserComponent } from './user/user.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ContactComponent } from './contact/contact.component';
 import { OrderdetailsComponent } from './orderdetails/orderdetails.component';
+import { NewsletterComponent } from './newsletter/newsletter.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'category', component: CategoryComponent, canActivate: [AuthGuard] },
   { path: 'order', component: OrderComponent, canActivate: [AuthGuard] },
+  { path: 'newsletter', component: NewsletterComponent, canActivate: [AuthGuard] },
   { path: 'orderdetails/:id', component: OrderdetailsComponent, canActivate: [AuthGuard] },
   { path: 'navigation', component: NavigationComponent, canActivate: [AuthGuard] },
   { path: 'product', component: ProductComponent, canActivate: [AuthGuard] },
